@@ -1,55 +1,54 @@
 const form = document.querySelector("#pedir-nombre");
 const greet = document.querySelector("#saludo");
-const genderSelect = document.querySelector("#genero")
+const genderSelect = document.querySelector("#genero");
 const nameInput = document.querySelector("#name");
 const ageInput = document.querySelector("#edad");
+const languageSelect = document.querySelector("#idioma"); // Nuevo select para idioma
 
-function getCurrTime() {
-  let fechaActual = new Date();
-  let horaActual = fechaActual.getHours();
-  let saludoHora;
-  if (horaActual <= 12) {
-    saludoHora = "Buenos dias";
+const translations = {
+  es: {
+    greetings: ["Buenos días", "Buenas tardes", "Buenas noches"],
+    genderTitles: {
+      Masculino: ["joven", "Sr."],
+      Femenino: ["Srta.", "Sra."],
+      Otro: [""]
+    }
+  },
+  en: {
+    greetings: ["Good morning", "Good afternoon", "Good evening"],
+    genderTitles: {
+      Masculino: ["young man", "Mr."],
+      Femenino: ["Miss", "Mrs."],
+      Otro: [""]
+    }
   }
-  else if (horaActual <= 18) {
-    saludoHora = "Buenas tardes";
-  }
-  else {
-    saludoHora = "Buenas noches";
-  }
-  return saludoHora;
+};
+
+function getCurrTime(lang) {
+  let horaActual = new Date().getHours();
+  if (horaActual <= 12) return translations[lang].greetings[0];
+  else if (horaActual <= 18) return translations[lang].greetings[1];
+  else return translations[lang].greetings[2];
 }
 
-function getGender(gender) {
-  if (gender === "Masculino") {
-    return ["joven", "Sr."];
-  }
-  else if (gender === "Femenino") {
-    return ["Srta.", "Sra."];
-  }
-  else {
-    return [];
-  }
+function getGender(gender, lang) {
+  return translations[lang].genderTitles[gender] || [""];
 }
 
-function getGenderByAge(gender, age) {
-  if (gender == []) {
-    return ""
-  }
-  if (age >= 30) {
-    return gender[1];
-  }
-  else {
-    return gender[0];
-  }
+function getGenderByAge(genderArray, age) {
+  return age >= 30 ? genderArray[1] : genderArray[0];
 }
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  
   const nombre = nameInput.value.trim();
-  hora = getCurrTime();
-  genero = getGenderByAge(getGender(genderSelect.value), ageInput.value)
-  let saludar = hora + " " + genero + " " + nombre + "!";
-  greet.textContent = saludar;
-  console.log(saludar_nombre);
+  const idioma = languageSelect.value;
+  const generoArray = getGender(genderSelect.value, idioma);
+  const genero = getGenderByAge(generoArray, ageInput.value);
+  const hora = getCurrTime(idioma);
+
+  let saludoFinal = `${hora} ${genero} ${nombre}!`;
+  greet.textContent = saludoFinal;
+  console.log(saludoFinal);
 });
