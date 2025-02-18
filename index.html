@@ -6,12 +6,18 @@
     <title>Saludador</title>
 </head>
 <body>
-    <div>Hola!</div>
     <form id="pedir-nombre">
-        <input type="text" id="name" placeholder="Por favor, ingresa tu nombre">
-        <input type="submit" value="Enviar">
-    </form>
-    <div id="saludo"></div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" placeholder="Ingresa tu nombre" required>
+    
+        <label for="genero">Género:</label>
+        <select id="genero">
+            <option value="" disabled selected>Selecciona tu género</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select>
+    <div id="saludo">Hola!</div>
     <script src="./src/presenter.js"></script>
 </body>
 </html>
