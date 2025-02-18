@@ -1,7 +1,8 @@
 const form = document.querySelector("#pedir-nombre");
-const div = document.querySelector("#saludo");
-const select = document.querySelector("#genero")
-const input = document.querySelector("#name");
+const greet = document.querySelector("#saludo");
+const genderSelect = document.querySelector("#genero")
+const nameInput = document.querySelector("#name");
+const ageInput = document.querySelector("#edad");
 
 function getCurrTime() {
   let fechaActual = new Date();
@@ -21,22 +22,34 @@ function getCurrTime() {
 
 function getGender(gender) {
   if (gender === "Masculino") {
-    return "Sr.";
+    return ["joven", "Sr."];
   }
   else if (gender === "Femenino") {
-    return "Sra.";
+    return ["Srta.", "Sra."];
   }
   else {
-    return "";
+    return [];
+  }
+}
+
+function getGenderByAge(gender, age) {
+  if (gender == []) {
+    return ""
+  }
+  if (age >= 30) {
+    return gender[1];
+  }
+  else {
+    return gender[0];
   }
 }
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const nombre = input.value.trim();
+  const nombre = nameInput.value.trim();
   hora = getCurrTime();
-  genero = getGender(select.value)
+  genero = getGenderByAge(getGender(genderSelect.value), ageInput.value)
   let saludar = hora + " " + genero + " " + nombre + "!";
-  div.textContent = saludar;
+  greet.textContent = saludar;
   console.log(saludar_nombre);
 });

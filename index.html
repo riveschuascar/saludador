@@ -8,7 +8,7 @@
 <body>
     <form id="pedir-nombre">
         <label for="name">Nombre:</label>
-        <input type="text" id="name" placeholder="Ingresa tu nombre" required>
+        <input type="text" id="name" placeholder="Ingresa tu nombre">
     
         <label for="genero">Género:</label>
         <select id="genero">
@@ -17,6 +17,10 @@
             <option value="Femenino">Femenino</option>
             <option value="Otro">Otro</option>
         </select>
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" placeholder="Ingresa tu edad">
+        <button type="submit">Saludar</button>
     <div id="saludo">Hola!</div>
     <script src="./src/presenter.js"></script>
 </body>
